@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% block body %}
+     <div class="col-md-12">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="{{url_for('static',filename='/media/'+website.image1)}}" style="object-fit:cover;" class="d-block w-100" height="650px" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="{{url_for('static',filename='/media/'+website.image2)}}" height"650px"  style="object-fit:cover;" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="{{url_for('static',filename='/media/'+website.image3)}}" style="object-fit:cover;" class="d-block w-100" height="650px" alt="...">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+</div>
+</div>
+<hr>
+<section id="product" class="py-3 py-md-3">
+  <h1 class="text-center col-md-12 text-bold">Products</h1>
+  <hr>
+  <div class="row">
+    <div class=" col-lg-2 col-md-3">
+    <nav class=" d-md-block bg-dark sidebar">
+      <div class="position-sticky">
+        <h3 class="sidebar-heading text-center  ">Categories</h3>
+        <ul class="nav flex-column">
+          {% for category in category  %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('showcategory',id=category.id)}}">{{category.name}}</a>
+          </li>
+          {% endfor %}
+        </ul>
+        <h3 class="sidebar-heading text-center">Brands</h3>
+        <ul class="nav flex-column">
+          {% for brand in  brands %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('showbrand',id=brand.id)}}">{{brand.name}}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </nav>
+  </div>
+<div class="col-md-9 col-lg-10">
+  <div class="row">
+  {% for products in products  %}
+  <div class="col-md-3 col-lg-4">
+    <div class="card" style="width: 17rem; margin:15px;">
+      <img src="{{url_for('static', filename="/media/"+ products.image )}}" class="card-img-top" width="250px" height="250px" alt="...">
+      <div class="card-body">
+        <a href="{{url_for('productdetails', id=products.id )}}"><h5 class="card-title text-center">{{products.name}}</h5></a>
+        <p class="card-text text-center fw-bold">Product Price:{{products.price}}/-</p>
+        {% if current_user.is_authenticated %}
+        <form  action="{{url_for('add_to_cart',item_id=products.id)}}" method="POST">
+       
+      
+        <button type="submit" class="add-to-cart-btn btn btn-warning form-control mt-2 text-primary" data-product-id="{{ products.id }}"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button>
+        </form>
+        {% else %}
+        <a href="{{url_for('login')}}" class="btn btn-warning rounded-0 mt-1 text-primary fw-bold form-control" ><i class="fa-solid fa-cart-shopping"></i>Add to Cart</a>
+        {% endif %}
+
+        </div>
+    </div>
+  </div>
+{% endfor %}
+</div>
+
+
+
+</div>
+<hr>
+</section>
+<!-- About 1 - Bootstrap Brain Component -->
+<section class="py-3 py-md-3" id="aboutus">
+  <h1 class="text-center col-md-12 text-bold">About Us</h1>
+  <hr>
+  <div class="container">
+    <div class="row gy-3 gy-md-4 gy-lg-0 align-items-lg-center">
+      <div class="col-12 col-lg-6 col-xl-5">
+        <img class="img-fluid rounded" loading="lazy" src="{{url_for('static',filename='/images/maamonoshaelctric.avif')}}" alt="About 1">
+      </div>
+      <div class="col-12 col-lg-6 col-xl-7">
+        <div class="row justify-content-xl-center">
+          <div class="col-12 col-xl-11">
+            <h2 class="mb-3">{{website.about_heading}}</h2>
+            <p class="lead fs-4 text-secondary mb-3">{{website.about_text}}</p>
+            <p class="mb-5"></p>
+
+            <div class="row gy-4 gy-md-0 gx-xxl-5X">
+              <div class="col-12 col-md-6">
+                <div class="d-flex">
+                  <div class="me-4 text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                      <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h2 class="h4 mb-3">Versetile Brands</h2>
+                    <p class="text-secondary mb-0">{{website.versetile_bands}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="d-flex">
+                  <div class="me-4 text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-fire" viewBox="0 0 16 16">
+                      <path d="M8 16c3.314 0 6-2 6-5.5 0-1.5-.5-4-2.5-6 .25 1.5-1.25 2-1.25 2C11 4 9 .5 6 0c.357 2 .5 4-2 6-1.25 1-2 2.729-2 4.5C2 14 4.686 16 8 16Zm0-1c-1.657 0-3-1-3-2.75 0-.75.25-2 1.25-3C6.125 10 7 10.5 7 10.5c-.375-1.25.5-3.25 2-3.5-.179 1-.25 2 1 3 .625.5 1 1.364 1 2.25C11 14 9.657 15 8 15Z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h2 class="h4 mb-3">Digital Agency</h2>
+                    <p class="text-secondary mb-0">{{website.digital_agency}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+</section>
+<section class="py-3 py-md-3" id="contactus">
+  <h1 class="text-center col-md-12 text-bold">Contact Us</h1>
+  <hr>
+  <div class="bg-contact2"style="background:url({{url_for('static',filename='/images/nature2.jpg')}}); background-repeat:no-repeat; background-size:cover; background-position:center;">
+    <h1 class="text-center contact-heading">Contact Us</h1>
+    <div class="container-contact2">
+    <div class="wrap-contact2">
+    <form action="{{url_for("contact")}}" method="POST" class="contact2-form validate-form text-center">
+
+    <div class="wrap-input2 validate-input" data-validate="Name is required">
+    <input class="input2 name my-2 form-control rounded-0" type="text" name="name" placeholder="Enter Your Name">
+    <span class="focus-input2" data-placeholder="NAME"></span>
+    </div>
+    <div class="wrap-input2 validate-input" data-validate="Valid email is required: ex@abc.xyz" >
+    <input class="input2 my-2 email form-control rounded-0" type="text" name="email" placeholder="Enter Your Email">
+    <span class="focus-input2" data-placeholder="EMAIL"></span>
+    </div>
+    <div class="wrap-input2 validate-input" data-validate="Message is required">
+    <textarea class="input2 msg my-2 form-control rounded-0" name="message"placeholder="Enter Your Message"></textarea>
+    <span class="focus-input2" data-placeholder="MESSAGE"></span>
+    </div>
+    <div class="container-contact2-form-btn">
+    <div class="wrap-contact2-form-btn">
+    <div class="contact2-form-bgbtn"></div>
+    <button class="contact2-form-btn input2 my-2 form-control rounded-0">
+    Send Your Message
+    </button>
+    </div>
+    </div>
+    </form>
+    </div>
+    </div>
+    </div>
+  </section>
+ 
+    
+  {% endblock %}
+  <!-- <div class="container my-5"> -->
+
+   

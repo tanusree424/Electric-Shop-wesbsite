@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}change-profile{% endblock  %}
+{% block body %}
+<div class="card p-5">
+    <img src="{{url_for('static', filename="/media/"+users.image)}}" width="300px" height="300px" style="object-fit:contain; margin:auto;"/>
+    <div class="m-auto card p-4">
+    <form action="{{url_for('changeprofileDetails', id=users.id )}}" method="POST" enctype="multipart/form-data">
+        <div class="mb-3 form-group">
+         
+        <b>NAME:</b>  <input type="text" class="form-control" name="user_name" value="{{users.name}}">
+        </div>  
+        <div class="mb-3 form-group">
+        <b>EMAIL:</b><input type="email" value="{{users.email}}" name="user_email" class="form-control" id="exampleInputPassword1">
+        </div>
+        <div class="mb-3 form-group">
+            <b>Enter Your Last Password:</b><input type="password" name="user_password"  class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="mb-3 form-group">
+                <b>Enter Your New Password:</b><input type="password" name="user_password2"  class="form-control" id="exampleInputPassword1">
+                </div>
+                <div class="mb-3 form-group">
+                    <b>Confirm Your New Password:</b><input type="password" name="user_password3"  class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <div class="mb-3 form-group">
+                        <b>Change Image:</b><input type="file"  class="form-control" name="user_image" id="exampleInputPassword1">
+                        </div>
+        <button type="submit" class="btn btn-primary form-control">UPDATE PROFILE</button>
+      </form>
+    </div>
+</div>
+{% endblock body %}
+

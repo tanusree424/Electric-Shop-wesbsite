@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <title>ElectricShop - Maa Monosha Electric</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{url_for('static',filename='/css/style.css')}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Matemasie&family=New+Amsterdam&display=swap" rel="stylesheet">
+
+    <title>Product Details</title>
+  </head>
+  <body>
+    <nav class="navbar top-nav navbar-expand-lg sticky-lg-top ">
+        <div class="container-fluid">
+        <img class="logo-img" src="https://st2.depositphotos.com/1378583/8011/v/450/depositphotos_80114926-stock-illustration-home-electric-work-logo.jpg" alt="" srcset="">
+          <a class="navbar-brand text-decoration-none " href="#">MaaMonoshaElectric</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link " aria-current="page" href="{{url_for('home')}}"><i class="fa-solid fa-home"></i>Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#product"><i class="fa-solid fa-product-hunt"></i>Products</a>
+              </li>
+             
+            
+              <li class="nav-item">
+             <a class="nav-link " aria-current="page" href=""><i class="fa-solid fa-cart-shopping"></i>Cart</a>
+             
+              </li>
+         {% if current_user.is_authenticated %} 
+              <li class="nav-item"><a class="nav-link " href=""><i class="fa-solid fa-user"></i>Profile</a></li>
+              <li class="nav-item"><a class="nav-link " href=""> <i class="fa-solid fa-truck-fast"></i>Orders</a></li>
+              <li class="nav-item">
+                <a class="nav-link " aria-current="page" href="/logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
+                
+                 </li>
+
+              
+              {% else %}
+              
+              <li class="nav-item"><a class="nav-link "  href="/login"><i class="fa-solid fa-right-to-bracket"></i>Login</a></li>
+                </ul>
+              {% endif %}
+            <form class="d-flex search justify-content-right">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            
+        </div>
+          </div>
+        </div>
+      </nav>
+      {% with messages=get_flashed_messages(with_categories=True) %}
+     {% if messages %}
+     {% for category,message in messages  %}
+     <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+        <strong>{{message}}</strong> <p>{{username}}</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+     {% endfor %}
+     {% endif %}
+  {% endwith %}
+  <div class="container text-center">
+    <h2 class="text-bold mt-3 fs-2">  {{products.name}} </h2>
+    <hr>
+    <div class="d-flex justify-content-center align-items-center h-100">
+
+        <div class="card" style="width:18rem; background:none; border:none;">
+            
+            <div class="d-flex justify-content-center" style="width:100%">
+            <img src="{{url_for('static', filename='/media/'+products.image2)}}"  class="mx-5" width="300px" height="300px" />
+            <img src="{{url_for('static', filename='/media/'+products.image3)}}" class="mx-5"  width="300px" height="300px" />
+            
+        </div>
+    </div>
+    </div>
+    <div class="text-center my-5">{{products.description}}</div>
+  </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

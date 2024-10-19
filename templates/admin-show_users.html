@@ -1,0 +1,122 @@
+{% extends "admin_base.html" %}
+{% block body %}
+<div class="d-flex justify-content-between align-items-center  h-100 vh-100 overflow-hidden">
+<div class="container my-5  w-75">
+   
+    <div class="card  text-center">
+        <hr>
+        <div class="d-flex m-2 justify-content-between overflow-hidden " >
+            <h3 style="margin-left:25px; font-weight:700; color:darkblue; margin:auto;">ALL Users</h3>
+            
+           
+        </div>
+        <hr>
+      
+        <table class="table  table-hover table-bordered table-responsive  table-striped">
+            <thead>
+            <th >ID</th>
+            <th >Name</th>
+            <th >Email</th>
+            <th >Image</th>
+            <th >User Role</th>
+            <th >Phone</th>
+            <th>Action</th>
+            </thead>
+            <tbody>
+         
+               {% if not users.items %}
+                
+                <tr colspan="4">No Products Found</tr>
+                {% else %}
+                {% for user in users.items  %}
+                <tr>
+                <td>{{user.id}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.email}}</td>
+                <td>
+                    <img src="{{url_for('static',filename='media/'+user.image)}}" width="100px"  /></td>
+                    {% if user.user_type== 1 %}
+                <td>ADMIN</td>
+                {% else %}
+                <td>Customer</td>
+                {% endif %}
+                <td>{{user.phone}}</td>
+                
+                
+               
+               
+                <td class="d-flex justify-content-center align-items-center">
+                 <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal{{user.id}}" class="btn btn-info">EDIT</a>
+                  <a href="{{url_for("delete_user",id=user.id)}}" class="btn btn-danger mx-3" onclick="return confirm('Are You sure want to delete?')" >Delete</a>
+              </td>
+                </tr>
+               <!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal{{user.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+         <form action="{{url_for("update_role",id=user.id)}}" method="POST">
+            <div class="mb-3">
+               
+            <select class="form-select form-control" name="user_type" aria-label="Default select example">
+                <option selected>Select User Role</option>
+                <option value="1">Admin</option>
+                <option value="0">Customer</option>
+               
+              </select>
+            </div>
+            <button type="submit"  data-bs-dismiss="modal" class="btn btn-primary">Update User</button>
+         </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+       
+        </div>
+      </div>
+    </div>
+  </div>
+                {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+
+        <div class="p-2 m-auto">
+          <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                  {% if users.has_prev %}
+                  <li class="page-item">
+                      <a class="page-link" href="{{ url_for('show_users', page=users.prev_num) }}" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                      </a>
+                  </li>
+                  {% endif %}
+  
+                  {% for page_num in users.iter_pages() %}
+                  {% if page_num %}
+                  <li class="page-item {% if page_num == users.page %}active{% endif %}">
+                      <a class="page-link" href="{{ url_for('show_users', page=page_num) }}">{{ page_num }}</a>
+                  </li>
+                  {% else %}
+                  <li class="page-item disabled"><span class="page-link">...</span></li>
+                  {% endif %}
+                  {% endfor %}
+  
+                  {% if users.has_next %}
+                  <li class="page-item">
+                      <a class="page-link" href="{{ url_for('show_users', page=users.next_num) }}" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                      </a>
+                  </li>
+                  {% endif %}
+              </ul>
+          </nav>
+      </div>
+{% endblock body %}
+

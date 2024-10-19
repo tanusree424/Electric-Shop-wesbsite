@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="container">
+    <div class="d-flex justify-content-center align-items-center"> 
+   <div class="col-md-6 m-auto">
+
+   
+    <form action="{{url_for('place_order')}}" method="POST">
+        <div class=" d-flex justify-content-between w-75">
+            <div class="mb-3 form-group mx-3">
+            <label class="form-label fw-bold">Name:</label>
+            <input class="form-control rounded-0" name="name" placeholder="Enter Name" />
+            <input type="hidden" value="{{product_id}}" name="product_id" />
+            </div>
+            <div class="mb-3 form-group mx-3">
+            <label class="form-label fw-bold">Email:</label>
+            <input type="email" class="form-control rounded-0" name="email" placeholder="Enter Email" />
+            </div>
+        </div>
+        <div class="mb-3 d-flex justify-content-between w-75">
+            <div class="mb-3 form-group mx-3">
+            <label class="form-label fw-bold">Phone:</label>
+            <input type="number" class="form-control rounded-0" name="phone" placeholder="Enter Phone" />
+            </div>
+            <div class="mb-3 form-group mx-3">
+            <label class="form-label fw-bold">Alternate Number</label>
+            <input type="number" class="form-control rounded-0" name="alt_num" placeholder="Enter Alternate Number" />
+            </div>
+        </div>
+       
+        <div class="mb-3">
+            <label class="form-label fw-bold">Address:</label>
+            <textarea class="form-control rounded-0" name="address" style="height:8rem" placeholder="Enter Address" ></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-bold">Payment Mode</label>
+        
+            <select class="form-control rounded-0" name="Payment_mode">
+             <option value="select payment mode" selected>Select Payment Mode</option>
+                <option value="Credit or Debit Card" selected>Credit or Debit Card</option>
+                    <option value="UPI" selected>UPI</option>
+                        <option value="Net Banking" selected>Net Banking</option>
+                        <option value="Cash on Delivery" selected>Cash On Delivery</option>
+            </select>
+        </div>
+        <div class="mb-3 text-center">
+           <button type="submit" class="btn btn-warning form-control" >Place Order</button>
+        </div>
+        <div class="mb-3 text-center">
+            <button type="button" class="btn btn-secondary form-control" >Continue Shopping</button>
+         </div>
+    </form>
+</div>
+</div>
+</div>
+{% endblock body %}
+

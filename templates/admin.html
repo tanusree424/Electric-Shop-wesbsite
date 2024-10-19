@@ -1,0 +1,60 @@
+{% extends "admin_base.html" %}
+{% block title %}Admin | Home{% endblock  %}
+{% block body %}
+<div class="container w-100">
+
+    <div class="col-md-12">
+    <div class="d-flex justify-content-between align-items-lg-center vh-100  ">
+    <div class="col-md-4  col-lg-3">
+      <div class="card1 mt-5 text-light rounded-0" style="width:15rem;">
+        <div class="card-body">
+          <h2 class="text-bold text-center"><i class="fa-solid fa-box"></i> <a href="{{url_for('adminproduct')}}" class="text-decoration-none text-light text-bold">Products</a></h2>
+          <hr>
+          
+          <h5>Total Products: {{products}}</h5>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3  col-lg-3">
+      <div class="card2 mt-5 text-light rounded-0"  style="width:15rem; " >
+        <div class="card-body">
+          <h2 class="text-bold text-center"><i class="fa-solid fa-users"></i> <a href="{{url_for('show_users')}}" class="text-decoration-none text-light text-bold"> All Users</a></h2>
+
+          <hr>
+        
+          <h5>Total Users: {{users}}</h5>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3  col-lg-3">
+      <div class="card3 mt-5 text-light rounded-0"  style="width:15rem; ">
+        <div class="card-body">
+          <h2 class="text-bold text-center"><i class="fa-solid fa-bag-shopping"></i> <a href="{{url_for("admin_all_orders")}}" class="text-decoration-none text-light text-bold"> Orders</a></h2>
+          <hr>
+      
+          <h5>Total Orders: {{orders}}</h5>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3  col-lg-3">
+      <div class="card4 mt-5 text-light rounded-0"  style="width:15rem;">
+        <div class="card-body">
+          <h2 class="text-bold text-center"><i class="fa-solid fa-address-book"></i><a href="{{url_for('admincontact')}}" class="text-decoration-none text-light text-bold"> Contact</a></h2>
+          <hr>
+          
+          <h5>Total Messages: {{contacts}}</h5>
+        </div>
+      </div>
+    </div>
+    
+    <div>
+      
+      
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+{% endblock body %}

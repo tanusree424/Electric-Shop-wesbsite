@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Product Search</h1>
+        <!-- Search Form -->
+        <form action="/search" method="get">
+            <input type="text" name="q" placeholder="Search for a product" value="{{ request.args.get('q', '') }}">
+            <button type="submit">Search</button>
+        </form>
+
+        <!-- Search Results -->
+        {% if results %}
+            <h2>Results for "{{ search_term }}":</h2>
+            <ul>
+                {% for product in results %}
+                    <li>{{ product.product_name }} - ${{ product.price }}</li>
+                {% endfor %}
+            </ul>
+        {% elif search_term %}
+            <p>No results found for "{{ search_term }}".</p>
+        {% endif %}
+    </div>
+</body>
+</html>

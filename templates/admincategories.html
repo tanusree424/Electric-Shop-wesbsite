@@ -1,0 +1,129 @@
+{% extends "admin_base.html" %}
+{% block body %}
+<div class="d-flex justify-content-between align-items-center">
+<div class="container my-5  w-50">
+   
+    <div class="card  text-center">
+        <hr>
+        <div class="d-flex m-2 justify-content-between " >
+            <h3 style="margin-left:25px; font-weight:700; color:darkblue; ">ALL CATEGORIES</h3>
+            <a href="" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">Add Categories</a>
+           
+        </div>
+        <hr>
+      
+        <table class="table  table-hover table-bordered table-responsive  table-striped">
+            <thead>
+            <th >ID</th>
+            <th >Category Name</th>
+            <th>Action</th>
+            </thead>
+            <tbody>
+         
+               {% if not categories.items %}
+                
+                <tr colspan="4">No Category Found</tr>
+                {% else %}
+                {% for category in categories.items  %}
+                <tr>
+                <td>{{category.id}}</td>
+                <td>{{category.name}}</td>
+                <td class="d-flex justify-content-center">
+                    <a href="/cat_edit/{{category.id}}" data-bs-toggle="modal" data-bs-target="#editModal{{category.id}}" class="btn btn-info mx-3">Edit</a>
+                    <a href="/admincategorydelete/{{category.id}}" class="btn btn-danger mx-3" onclick="return confirm('Are You sure want to delete?')" >Delete</a>
+                </td>
+                </tr>
+                <div class="modal fade" id="editModal{{category.id}}" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="myModalLabel">Edit Category</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{url_for('admincategoryedit',id=category.id)}}" method="POST">
+                                <div class="mb-3">
+                                  <label for="exampleInputEmail1" class="form-label">Category Name</label>
+                                  <input type="text" class="form-control" id="cat_name" value="{{category.name}}" placeholder="Enter Category Name" name="cat_name" aria-describedby="emailHelp">
+                                 
+                                
+                                <button type="submit" class="btn btn-primary form-control mt-4 text-bold">UPDATE</button>
+                              </form>
+                        </div>
+                        <hr>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+        <div class="p-2 m-auto">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% if categories.has_prev %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('admincategory', page=categories.prev_num) }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+
+                {% for page_num in categories.iter_pages() %}
+                {% if page_num %}
+                <li class="page-item {% if page_num == categories.page %}active{% endif %}">
+                    <a class="page-link" href="{{ url_for('admincategory', page=page_num) }}">{{ page_num }}</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled"><span class="page-link">...</span></li>
+                {% endif %}
+                {% endfor %}
+
+                {% if categories.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('admincategory', page=categories.next_num) }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    <!-- Button trigger modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="myModalLabel">ADD CATEGORY</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST">
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Category Name</label>
+                      <input type="text" class="form-control" id="cat_name" placeholder="Enter Category Name" name="cat_name" aria-describedby="emailHelp">
+                     
+                    
+                    <button type="submit" class="btn btn-primary form-control mt-4 fw-bold">ADD CATEGORIES</button>
+                  </form>
+            </div>
+            <hr>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+    </div>
+    
+
+    {% endblock %}
+  <!-- Modal -->
+  

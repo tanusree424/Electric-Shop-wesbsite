@@ -1,0 +1,224 @@
+*{
+    margin: 0;
+    padding: 0;box-sizing: border-box;
+   
+
+}
+body{
+    background-color: rgb(248, 229, 232);
+}
+.logo-img{
+    height: 60px;
+    width: 80px;
+    border-radius: 50%;
+    resize: both;
+    margin: 10px;
+}
+.top-nav{
+    background-color: rgb(224, 85, 5);
+}
+.navbar-brand{
+    font-family: "New Amsterdam", sans-serif;
+    font-weight: 800;
+    font-style: initial;
+  font-size: 2.8rem;
+  color: rgb(38, 0, 255);
+}
+.nav-item{
+    font-weight: 500;
+    color: yellow;
+}
+.nav-item:hover{
+    background-color: white;
+    color: yellow;
+}
+.nav-link{
+    color: rgb(81, 255, 0);
+    font-weight: 600;
+    font-size: 18px;
+    transition: 0.1 all;
+    margin-left:2px;
+}
+.search{
+    margin-left: 30px;
+}
+.sidebar{
+    background:rgb(255, 187, 0);
+   
+    /* height: 1000px; */
+}
+.pera{
+    background-color: skyblue;
+    width: 200px;
+}
+.sidebar-heading {
+    background-color: #007bff; /* Blue background color */
+    color: white;
+    padding: 15px;
+    margin: 0;
+  
+  }
+  .fs-2{
+    font-size: 5rem;
+
+  }
+  section h1{
+    margin: 2rem 3rem 4rem ;
+    color: darkblue;
+    font-weight: 800;
+    font-size: 55px;
+}
+.bg-contact2{
+    background-image: url('/images/nature2.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 70vh;
+    width: 100%;
+}
+ .contact2-form {
+    width: 500px;
+    text-align: center;
+    
+} 
+.bg-contact2 h1{
+    color:orangered;
+    text-align: center;
+    margin-left: 120px;
+} 
+#contactus input{
+    background: none;
+    margin-left: 28rem;
+    margin-bottom: 15rem;
+}
+#contactus input::placeholder{
+    color: red;
+    font-weight: 800;
+}
+#contactus input:focus{
+    background: #fff;
+}
+#contactus textarea:focus
+{
+    background: #fff;
+}
+#contactus textarea::placeholder{
+    color: red;
+    font-weight: 800;  
+}
+#contactus textarea{
+    background: none;
+    margin-left: 28rem;  
+    height: 10rem;
+    resize: none;
+}
+#contactus button{
+    margin-left: 28rem;
+    background: yellow;  
+    color: blue;
+    font-weight: 800;
+}
+#contactus button:hover{
+    transition: all 1.5 ease;
+    background-color: blue ;
+    color: aqua;
+}
+#contactus.name{
+    margin-bottom: 35px;
+} 
+.signup input{
+    background: none;
+}
+.signup.form-control:focus{
+background: #ffffff;
+
+}
+
+    .gradient-custom-4 {
+    /* fallback for old browsers */
+    background: #b3f06d;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgb(132, 242, 250), rgba(143, 211, 244, 1));
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))
+    }
+    .card1{
+        background: #0694d6;
+        
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: -webkit-linear-gradient(to right, rgba(162, 230, 4, 0.5), rgba(143, 211, 244, 0.5));
+        
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(to right, rgba(199, 233, 10, 0.925), rgba(143, 211, 244, 0.5))
+        }
+        .gradient-custom-4 {
+        /* fallback for old browsers */
+        background: #0be203;
+    }
+    .card2{
+        background: #d606b3;
+        
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: -webkit-linear-gradient(to right, rgba(48, 2, 48, 0.5), rgba(6, 197, 211, 0.5));
+        
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(to right, rgba(252, 0, 168, 0.925), rgba(9, 29, 209, 0.5))
+        }
+        .gradient-custom-4 {
+        /* fallback for old browsers */
+        background: #0be203;
+    }
+    .card3{
+        background: #cbee03;
+        
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: -webkit-linear-gradient(to right, rgba(221, 245, 5, 0.5), rgba(245, 25, 25, 0.5));
+        
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(to right, rgba(236, 108, 4, 0.925), rgba(240, 85, 131, 0.5))
+        }
+        .gradient-custom-4 {
+        /* fallback for old browsers */
+        background: #ebdc04;
+    }
+    .card4{
+        background: #ee0b03;
+        
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: -webkit-linear-gradient(to right, rgba(245, 5, 245, 0.5), rgba(238, 9, 104, 0.5));
+        
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(to right, rgba(236, 4, 217, 0.925), rgba(123, 124, 219, 0.5))
+        }
+        .gradient-custom-4 {
+        /* fallback for old browsers */
+        background: #04ebeb;
+    }
+    .card5{
+        background: #48addb;
+        
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: -webkit-linear-gradient(to right, rgba(252, 138, 252, 0.5), rgba(20, 1, 9, 0.5));
+        
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(to right, rgba(236, 4, 217, 0.925), rgba(123, 124, 219, 0.5))
+        }
+        .gradient-custom-4 {
+        /* fallback for old browsers */
+        background: #eb048b;  
+    }
+    .card6{
+        background: #18a0df;
+        
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: -webkit-linear-gradient(to right, rgba(224, 14, 224, 0.5), rgba(64, 6, 224, 0.5));
+        
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(to right, rgba(236, 4, 217, 0.925), rgba(14, 224, 172, 0.5))
+        }
+        .gradient-custom-4 {
+        /* fallback for old browsers */
+        background: #79f703;  
+    }

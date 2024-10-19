@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static',filename='/css/style.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+   
+    <title>Edit Product</title>
+  </head>
+  <body style="background-image:url({{url_for('static',filename='/images/maamonoshaelectric2.jpg')}}); height:1100px; background-repeat:no-repeat; width:100%; background-size:cover; background-position:center;">
+    <div class="gradient-custom-3" style="height:1100px">
+        <nav class="navbar shadow top-nav navbar-expand-lg sticky-lg-top">
+            <div class="container-fluid">
+              <img class="logo-img" src="https://st2.depositphotos.com/1378583/8011/v/450/depositphotos_80114926-stock-illustration-home-electric-work-logo.jpg" alt="" srcset="">
+                <a class="navbar-brand text-decoration-none " href="{{url_for('admin')}}">MaaMonoshaElectric</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  {% if current_user.is_authenticated %}
+                  <h2 class="text-light text-bold mx-3">Welcome {{current_user.name}} !</h2>
+                  <a href="/logout" class="btn btn-warning rounded-0 ">Logout</a>
+                  <a href="{{url_for('adminbrands')}}" class="btn btn-success rounded-0 mx-3 ">Brands</a>
+                  <a href="{{url_for('admincategory')}}" class="btn btn-primary rounded-0 mx-3 ">Catagories</a>
+                  {% endif %}
+          
+                </div>
+              </div>
+          
+          
+          </nav>
+          {% with messages=get_flashed_messages(with_categories=True) %}
+          {% if messages %}
+          {% for category,message in messages  %}
+          <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+             <strong>{{message}}</strong> <p>{{username}}</p>
+             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+           </div>
+          {% endfor %}
+          {% endif %}
+          {% endwith %}
+          <div class="container mt-5">
+        
+            <div class="bg-light  text-dark p-3" style="width:100%">
+                <h3 class="text-dark text-center fw-bold">Edit Product</h3>
+                <hr>
+                <div class="d-flex justify-content-center align-items-center" style="width:1005;">
+                <div clas="col-md-6 m-auto">
+                    <form method="POST" enctype="multipart/form-data">
+                        <div class="mb-2 d-flex justify-content-between" style="width:500px">
+                          
+                        <b class="mt-1 mx-2">Name:</b>  <input type="text" class="form-control w-75" name="product_name" Value="{{products.name}}">
+                        <b class="mt-1 mx-2">Price:</b>   <input type="text" class="form-control w-75 mx-3" name="product_price" Value="{{products.price}}">
+                        </div>
+                        <div class="mb-2 d-flex justify-content-between" style="width:500px">
+                          
+                            <b class="mt-5 mx-2">Description:</b>  <textarea class="form-control w-75" style="height:10rem;" name="description" >{{products.description}}</textarea>
+                           
+                            </div>
+                            <div class="mb-2 d-flex justify-content-between" style="width:500px">
+                          
+                                <b class="mt-1 mx-4">Category:</b>  <select class="form-control " name="product_category">
+                                    {% for category in category  %}
+                                    {% if products.category_id  == category.id %}
+                                        <option value="{{category.id}}" selected>{{category.name}}</option>
+                                    {% endif %}
+                                    <option value="{{category.id}}">{{category.name}}</option>
+                                    {% endfor %}
+                                </select>
+                                <b class="mt-1 mx-4">Brands:</b>  
+                                <select class="form-control w-75" name="product_brands">
+                                    {% for brand in brands  %}
+                                    {% if products.brand_id  == brand.id %}
+                                        <option value="{{brand.id}}" selected>{{brand.name}}</option>
+                                    {% endif %}
+                                    <option value="{{brand.id}}">{{brand.name}}</option>
+                                    {% endfor %}
+                                </select>
+                                </div>
+                            
+                            <div class="mb-2 d-flex justify-content-between" style="width:500px">
+                            <b class="mt-1 mx-2">Image:</b>   <input type="file" class="form-control w-75 mx-3"  name="product_image">
+                            <img src="{{url_for('static', filename="/media/"+ products.image)}}" height="70px" width="70px"/>
+                            </div>
+                            <div class="mb-2 d-flex justify-content-between" style="width:500px">
+                                <b class="mt-1 mx-2">Image2:</b>   <input type="file" class="form-control w-75 mx-3" name="product_image2">
+                                <img src="{{url_for('static', filename="/media/"+ products.image2)}}"  height="70px" width="70px"/>
+                                </div>
+                                <div class="mb-2 d-flex justify-content-between" style="width:500px">
+                                    <b class="mt-1 mx-2">Image3:</b>   <input type="file" class="form-control w-75 mx-3" name="product_image3">
+                                    <img src="{{url_for('static', filename="/media/"+ products.image3)}}"  height="70px" width="70px"/>
+                                    </div>
+                                    <div class="mb-2">
+                                        <button type="submit" class="btn btn-warning form-control">UPDATE</button>
+                                    </div>
+                      </form>
+                </div>
+            </div>
+          </div>
+        </div>
+      
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

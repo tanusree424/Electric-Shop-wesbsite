@@ -1,0 +1,171 @@
+{% extends "admin_base.html" %}
+{% block body %}
+<div class="d-flex justify-content-between align-items-center">
+<div class="container my-5  w-75">
+   
+    <div class="card  text-center">
+        <hr>
+        <div class="d-flex m-2 justify-content-between " >
+            <h3 style="margin-left:25px; font-weight:700; color:darkblue; ">ALL PRODUCTS</h3>
+            <a href="{{url_for('addproduct')}}" class="btn btn-success" >ADD PRODUCTS</a>
+           
+        </div>
+        <hr>
+      
+        <table class="table  table-hover table-bordered table-responsive  table-striped">
+            <thead>
+            <th >ID</th>
+            <th >Name</th>
+            <th >Price</th>
+            <th >Image</th>
+            <th >Category</th>
+            <th >Brand</th>
+            <th>Action</th>
+            </thead>
+            <tbody>
+         
+               {% if not products.items %}
+                
+                <tr colspan="4">No Products Found</tr>
+                {% else %}
+                {% for product in products.items  %}
+                <tr>
+                <td>{{product.id}}</td>
+                <td>{{product.name}}</td>
+                <td>{{product.price}}</td>
+               
+                
+                <td>
+                    <img src="{{url_for('static',filename='media/'+product.image)}}" width="100px"  /></td>
+               
+                <td>{{product.category.name}}</td>
+                <td>{{product.brands.name}}</td>
+                <td class="d-flex justify-content-center align-items-center">
+                 <a href="/adminproductedit/{{product.id}}" class="btn btn-info">EDIT</a>
+                  <a href="/adminproductdelete/{{product.id}}" class="btn btn-danger mx-3" onclick="return confirm('Are You sure want to delete?')" >Delete</a>
+              </td>
+                </tr>
+                <div class="modal fade" id="editModal{{product.id}}" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="myModalLabel">Update Product</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{url_for('adminproductedit',id=product.id)}}" method="POST">
+                                <div class="mb-3">
+                                  <label for="exampleInputEmail1" class="form-label">Product Name</label>
+                                  <input type="text" class="form-control" id="brand_name" value="{{product.name}}" placeholder="Enter Brand Name" name="product_name" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Product Name</label>
+                                    <input type="text" class="form-control" id="brand_name" value="{{product.price}}" placeholder="Enter Brand Name" name="product_price" aria-describedby="emailHelp">
+                                  </div>
+                                  <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Product Category</label>
+                                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="product_category">
+                                       
+                                        {% for category in category %}
+                                        {% if product.category_id == category.id %}
+                                        <option value="{{category.id}}" selected>{{category.name}}</option>
+                                        {% endif %}
+                                        <option value="{{category.id}}">{{category.name}}</option>
+                                        {% endfor %}
+                                      </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputEmail1" class="form-label">Product Brands</label>
+                                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="product_brands">
+                                          <option selected>Open this select menu</option>
+                                          {% for brand in brands %}
+                                          {% if product.brand_id == brand.id %}
+                                          <option value="{{brand.id}}" selected>{{brand.name}}</option>
+                                          {% endif %}
+                                          <option value="{{brand.id}}">{{brand.name}}</option>
+                                          {% endfor %}
+                                        </select>
+                                        </div>
+                                  <div class="mb-3">
+                                    <label for="product_image" class="form-label">Product Image</label>
+                                    <input type="file" class="form-control" id="brand_name"  name="product_image" aria-describedby="emailHelp">
+                                    <img src="{{url_for('static', filename='media/'+product.image )}}" width="50px" height="50px"/>
+                                  </div>
+
+                                <button type="submit" class="btn btn-primary form-control mt-4 text-bold">UPDATE</button>
+                              </form>
+                        </div>
+                        <hr>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+        <div class="p-2 m-auto">
+          <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                  {% if products.has_prev %}
+                  <li class="page-item">
+                      <a class="page-link" href="{{ url_for('adminproduct', page=products.prev_num) }}" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                      </a>
+                  </li>
+                  {% endif %}
+  
+                  {% for page_num in products.iter_pages() %}
+                  {% if page_num %}
+                  <li class="page-item {% if page_num == products.page %}active{% endif %}">
+                      <a class="page-link" href="{{ url_for('adminproduct', page=page_num) }}">{{ page_num }}</a>
+                  </li>
+                  {% else %}
+                  <li class="page-item disabled"><span class="page-link">...</span></li>
+                  {% endif %}
+                  {% endfor %}
+  
+                  {% if products.has_next %}
+                  <li class="page-item">
+                      <a class="page-link" href="{{ url_for('adminproduct', page=products.next_num) }}" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                      </a>
+                  </li>
+                  {% endif %}
+              </ul>
+          </nav>
+      </div>
+    <!-- Button trigger modal -->
+  <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+   
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+        </div>
+    </div>
+    
+
+    {% endblock %}
+  <!-- Modal -->
+  

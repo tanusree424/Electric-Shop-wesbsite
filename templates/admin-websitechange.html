@@ -1,0 +1,70 @@
+{% extends "admin_base.html" %}
+{% block body %}
+<div class="d-flex justify-content-between  ">
+<div class="container my-5  w-75">
+   
+    <div class="card  ">
+       
+        <div class="col-md-6 card rounded-0 p-4 m-auto my-4">
+            <h2 class="text-center"> Change Website </h2>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Site Name</label>
+                <input type="text" class="form-control" value="{{website.name}}" name="site_name" id="exampleInputEmail1" aria-describedby="emailHelp">
+              
+              </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">About Heading</label>
+                <input type="text" class="form-control" value="{{website.about_heading}}" name="aboutheading" id="exampleInputEmail1" aria-describedby="emailHelp">
+         
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">About text</label>
+                <input type="text" class="form-control" value="{{website.about_text}}" name="abouttext" id="exampleInputEmail1" aria-describedby="emailHelp">
+              
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Versetile Brand</label>
+                <input type="text" class="form-control"value="{{website.versetile_bands}}" name="versetile_brand" value="" id="exampleInputEmail1" aria-describedby="emailHelp">
+              
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Digital Agency</label>
+                <input type="text" class="form-control" value="{{website.digital_agency}}" name="digital_agency" value="" id="exampleInputEmail1" aria-describedby="emailHelp">
+              
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Footer</label>
+                <input type="text" class="form-control" value="{{website.footer}}"name="footer" value="" id="exampleInputEmail1" aria-describedby="emailHelp">
+              
+              </div>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Logo</label>
+              <input type="file" class="form-control" name="logo" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <img src="{{url_for('static', filename="/images/"+website.logo)}}" width="50px" height="50px" />
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Image1</label>
+              <input type="file" class="form-control" name="image1" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <img src="{{url_for('static', filename="/images/"+website.image1)}}" width="60px" height="60px" />
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Image2</label>
+                <input type="file" class="form-control" name="image2" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <img src="{{url_for('static', filename="/images/"+website.image2)}}" width="60px" height="60px" />  
+            </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Image3</label>
+                <input type="file" class="form-control" name="image3" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <img src="{{url_for('static', filename="/images/"+website.image3)}}" width="60px" height="60px" />  
+            </div>
+            <button type="submit" class="btn btn-primary form-control">Submit</button>
+          </form>
+        </div>
+    </div>
+      
+       
+           
+         
+{% endblock  %}
+

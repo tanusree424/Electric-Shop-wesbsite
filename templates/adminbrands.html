@@ -1,0 +1,129 @@
+{% extends "admin_base.html" %}
+{% block body %}
+<div class="d-flex justify-content-between align-items-center">
+<div class="container my-5  w-50">
+   
+    <div class="card  text-center">
+        <hr>
+        <div class="d-flex m-2 justify-content-between " >
+            <h3 style="margin-left:25px; font-weight:700; color:darkblue; ">ALL BRANDS</h3>
+            <a href="" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">ADD BRANDS</a>
+           
+        </div>
+        <hr>
+      
+        <table class="table  table-hover table-bordered table-responsive  table-striped">
+            <thead>
+            <th >ID</th>
+            <th >Brand Name</th>
+            <th>Action</th>
+            </thead>
+            <tbody>
+         
+               {% if not brands.items %}
+                
+                <tr colspan="4">No Brand Found</tr>
+                {% else %}
+                {% for brand in brands.items  %}
+                <tr>
+                <td>{{brand.id}}</td>
+                <td>{{brand.name}}</td>
+                <td class="d-flex justify-content-center">
+                    <a href="/cat_edit/{{brand.id}}" data-bs-toggle="modal" data-bs-target="#editModal{{brand.id}}" class="btn btn-info mx-3">Edit</a>
+                    <a href="/admincategorydelete/{{brand.id}}" class="btn btn-danger mx-3" onclick="return confirm('Are You sure want to delete?')" >Delete</a>
+                </td>
+                </tr>
+                <div class="modal fade" id="editModal{{brand.id}}" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="myModalLabel">Edit Brand</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{url_for('adminbrandedit',id=brand.id)}}" method="POST">
+                                <div class="mb-3">
+                                  <label for="exampleInputEmail1" class="form-label">Category Name</label>
+                                  <input type="text" class="form-control" id="brand_name" value="{{brand.name}}" placeholder="Enter Brand Name" name="brand_name" aria-describedby="emailHelp">
+                                 
+                                
+                                <button type="submit" class="btn btn-primary form-control mt-4 text-bold">UPDATE</button>
+                              </form>
+                        </div>
+                        <hr>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+        <div class="p-2 m-auto">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% if brands.has_prev %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('adminbrands', page=brands.prev_num) }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+
+                {% for page_num in brands.iter_pages() %}
+                {% if page_num %}
+                <li class="page-item {% if page_num == brands.page %}active{% endif %}">
+                    <a class="page-link" href="{{ url_for('adminbrands', page=page_num) }}">{{ page_num }}</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled"><span class="page-link">...</span></li>
+                {% endif %}
+                {% endfor %}
+
+                {% if brands.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('adminbrands', page=brands.next_num) }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    <!-- Button trigger modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="myModalLabel">Add Brand</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST">
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Brand Name</label>
+                      <input type="text" class="form-control" id="brand_name" placeholder="Enter Brand Name" name="brand_name" aria-describedby="emailHelp">
+                     
+                    
+                    <button type="submit" class="btn btn-primary form-control mt-4 fw-bold">ADD Brands</button>
+                  </form>
+            </div>
+            <hr>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+    </div>
+    
+
+    {% endblock %}
+  <!-- Modal -->
+  
