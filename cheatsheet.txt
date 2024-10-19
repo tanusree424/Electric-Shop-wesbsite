@@ -1,0 +1,18 @@
+1. touch .gitignore
+2. git config  --global user.name tanusree
+3. git config  --global user.email tanubasuchoudhury1997@gmail.com
+4. git init
+5. git add .
+6. git commit  -m "initial commit"
+7. git status
+8. ssh-keygen -t ed25519 -C "tanubasuchoudhury1997@gmail.com"
+9. ssh-keygen -t rsa -b 4096 -C "tanubasuchoudhury1997@gmail.com"
+10.eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+11.  cat ~/.ssh/id_rsa.pub
+12. tail <path to id_rsa.pub> # add this key to github
+13. git remote add origin "git@github.com:tanusree424/Electric-Shop-wesbsite.git" #Project Url#
+14. git push origin master
+
+
+
